@@ -100,6 +100,7 @@ class GuideView @JvmOverloads constructor(
             return
         }
         drawTaskId = canvas.saveLayer(mRectF, mPaint)
+        // 绘制蒙层背景
         canvas.drawColor(backgroundColor)
         // 绘制裁剪区域
         for (i in mLayerList.indices) {

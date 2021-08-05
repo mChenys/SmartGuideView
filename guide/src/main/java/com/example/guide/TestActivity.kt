@@ -31,7 +31,7 @@ class TestActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        setTitle(R.string.app_name)
+        title = "kotlin测试版本"
     }
 
     /**
