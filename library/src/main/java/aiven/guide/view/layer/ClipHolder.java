@@ -8,10 +8,16 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import aiven.guide.view.base.LayerBaseHold;
+import aiven.guide.view.base.LayerBaseHolder;
 import aiven.guide.view.clip.BaseClipPosition;
 
-class ClipHold extends LayerBaseHold {
+/**
+ * Author: ChenYouSheng
+ * Date: 2021/8/5
+ * Email: chenyousheng@lizhi.fm
+ * Desc: 裁剪区处理
+ */
+class ClipHolder extends LayerBaseHolder {
 
     @Nullable
     protected BaseClipPosition target;

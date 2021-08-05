@@ -12,6 +12,12 @@ import android.support.annotation.Nullable;
 
 import aiven.guide.view.SmartGuide;
 
+/**
+ * Author: ChenYouSheng
+ * Date: 2021/8/5
+ * Email: chenyousheng@lizhi.fm
+ * Desc: 图层创建类
+ */
 public class IntroPanel {
     private Context context;
     protected int with;

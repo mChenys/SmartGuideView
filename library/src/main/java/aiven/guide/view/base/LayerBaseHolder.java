@@ -7,7 +7,13 @@ import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-public abstract class LayerBaseHold {
+/**
+ * Author: ChenYouSheng
+ * Date: 2021/8/5
+ * Email: chenyousheng@lizhi.fm
+ * Desc: 图层基类
+ */
+public abstract class LayerBaseHolder {
 
     abstract public void build(@Nullable Activity activity);
     abstract public void build(@Nullable Fragment fragment);

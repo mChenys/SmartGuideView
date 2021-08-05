@@ -7,7 +7,12 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-
+/**
+ * Author: ChenYouSheng
+ * Date: 2021/8/5
+ * Email: chenyousheng@lizhi.fm
+ * Desc: 裁剪区域基类
+ */
 public abstract class BaseClipPosition {
     protected float offsetX;
     protected float offsetY;

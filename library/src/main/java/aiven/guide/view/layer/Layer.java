@@ -10,55 +10,67 @@ import android.support.v4.app.Fragment;
 
 import aiven.guide.view.clip.BaseClipPosition;
 import aiven.guide.view.face.IntroPanel;
-
+/**
+ * Author: ChenYouSheng
+ * Date: 2021/8/5
+ * Email: chenyousheng@lizhi.fm
+ * Desc: 引导层,处理裁剪区和指示区
+ */
 class Layer {
     @NonNull
-    private ClipHold clipHold;
+    private ClipHolder clipHolder;
     @NonNull
-    private FaceHold face;
+    private FaceHolder faceHolder;
     @NonNull
     protected String tag;
 
     public Layer(String tag) {
-        this.clipHold = new ClipHold();
-        this.face = new FaceHold();
+        this.clipHolder = new ClipHolder();
+        this.faceHolder = new FaceHolder();
         this.tag = tag;
     }
 
 
     public void setClipTarget(BaseClipPosition target){
-        clipHold.setTarget(target);
+        clipHolder.setTarget(target);
     }
 
     public void setFacePanel(IntroPanel facePanel){
-        this.face.setFacePanel(facePanel);
+        this.faceHolder.setFacePanel(facePanel);
     }
 
-
+    /**
+     * 图层绘制入口
+     * @param canvas
+     * @param paint
+     * @param clip
+     * @param parentWidth
+     * @param parentHeight
+     */
     public void draw(Canvas canvas, Paint paint, boolean clip, float parentWidth, float parentHeight){
         if(clip){
-            clipHold.draw(canvas,paint,null,parentWidth,parentHeight);
+            clipHolder.draw(canvas,paint,null,parentWidth,parentHeight);
         }else{
-            face.draw(canvas,paint,clipHold.getRectF(),parentWidth,parentHeight);
+            faceHolder.draw(canvas,paint, clipHolder.getRectF(),parentWidth,parentHeight);
         }
     }
 
     protected void build(@Nullable Activity activity) {
-        if(clipHold != null){
-            clipHold.build(activity);
+        if(clipHolder != null){
+            clipHolder.build(activity);
         }
-        if(face != null){
-            face.build(activity);
+        if(faceHolder != null){
+            faceHolder.build(activity);
         }
     }
 
 
     protected void build(@Nullable Fragment fragment) {
-        if(clipHold != null){
-            clipHold.build(fragment);
+        if(clipHolder != null){
+            clipHolder.build(fragment);
         }
-        if(face != null){
-            face.build(fragment);
+        if(faceHolder != null){
+            faceHolder.build(fragment);
         }
     }
 
@@ -68,16 +80,16 @@ class Layer {
     }
 
     public boolean isClipEventPassThrough(){
-        if(clipHold != null){
-            return clipHold.isEventPassThrough();
+        if(clipHolder != null){
+            return clipHolder.isEventPassThrough();
         }
         return false;
     }
 
 
     public boolean isTouchInClip(float x,float y){
-        if(clipHold != null && clipHold.getRectF() != null){
-            if(clipHold.getRectF().contains(x,y)){
+        if(clipHolder != null && clipHolder.getRectF() != null){
+            if(clipHolder.getRectF().contains(x,y)){
                 return true;
             }
         }
@@ -85,8 +97,8 @@ class Layer {
     }
 
     public boolean isTouchInIntro(float x,float y){
-        if(face != null && face.getRectF() != null){
-            if(face.getRectF().contains(x,y)){
+        if(faceHolder != null && faceHolder.getRectF() != null){
+            if(faceHolder.getRectF().contains(x,y)){
                 return true;
             }
         }

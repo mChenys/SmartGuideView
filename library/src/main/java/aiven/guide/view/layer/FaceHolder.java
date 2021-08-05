@@ -7,10 +7,10 @@ import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import aiven.guide.view.base.LayerBaseHold;
+import aiven.guide.view.base.LayerBaseHolder;
 import aiven.guide.view.face.IntroPanel;
 
-class FaceHold extends LayerBaseHold {
+class FaceHolder extends LayerBaseHolder {
     protected IntroPanel facePanel;
 
     public void setFacePanel(IntroPanel facePanel) {

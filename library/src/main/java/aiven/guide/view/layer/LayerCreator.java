@@ -7,6 +7,9 @@ import aiven.guide.view.SmartGuide;
 import aiven.guide.view.clip.CustomClip;
 import aiven.guide.view.clip.ViewRectClip;
 
+/**
+ * 引导层创建者
+ */
 public class LayerCreator implements GuidView.InnerOnGuidClickListener {
 
     @NonNull
@@ -83,7 +86,9 @@ public class LayerCreator implements GuidView.InnerOnGuidClickListener {
     }
 
 
-
+    /**
+     * 显示引导层
+     */
     public void show(){
         over();
         if(smartGuide != null) {

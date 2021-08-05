@@ -20,6 +20,12 @@ import java.util.List;
 import aiven.guide.view.util.MLog;
 import aiven.guide.view.util.SmartUtils;
 
+/**
+ * Author: ChenYouSheng
+ * Date: 2021/8/5
+ * Email: chenyousheng@lizhi.fm
+ * Desc: 展示引导层的View
+ */
 public class GuidView extends View {
     private static final String TAG ="smartGuide998";
     private Paint mPaint;
@@ -61,7 +67,7 @@ public class GuidView extends View {
         if(mRectF == null || mRectF.width() < width || mRectF.height() < height){
             mRectF = new RectF(0,0,width,height);
         }
-        postInvalidate();
+        //postInvalidate();
     }
 
     @Override
@@ -78,9 +84,11 @@ public class GuidView extends View {
         drawTaskId = canvas.saveLayer(mRectF,mPaint);
         canvas.drawColor(backgroundColor);
         if(mLayerList != null){
+            // 绘制裁剪区域
             for(int i = 0;i < mLayerList.size(); i++){
                 mLayerList.get(i).draw(canvas,mPaint,true,mRectF.width(),mRectF.height());
             }
+            // 绘制引导区域
             for(int i = 0;i < mLayerList.size(); i++){
                 mLayerList.get(i).draw(canvas,mPaint,false,mRectF.width(),mRectF.height());
             }
@@ -88,7 +96,10 @@ public class GuidView extends View {
         canvas.restoreToCount(drawTaskId);
     }
 
-
+    /**
+     * 添加图层
+     * @param layer
+     */
     public void addLayer(Layer layer){
         if(layer == null){
             return;
