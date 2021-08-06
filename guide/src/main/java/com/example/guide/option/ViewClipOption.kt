@@ -3,10 +3,10 @@ package com.example.guide.option
 import android.app.Activity
 import android.content.Context
 import android.graphics.*
-import android.support.annotation.DrawableRes
-import android.support.annotation.IdRes
-import android.support.v4.app.Fragment
 import android.view.View
+import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
 import kotlin.math.roundToInt
 
 

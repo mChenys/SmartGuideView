@@ -10,12 +10,12 @@ import android.view.ViewConfiguration
 import com.example.guide.layer.Layer
 
 import android.app.Activity
-import android.support.v4.app.Fragment
 import android.text.TextUtils
 import android.view.ViewGroup
 import android.widget.FrameLayout
 
 import android.view.MotionEvent
+import androidx.fragment.app.Fragment
 import kotlin.math.abs
 
 
@@ -29,7 +29,7 @@ class GuideView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     def: Int = 0
-) : View(context, attrs, def) {
+) : FrameLayout(context, attrs, def) {
 
     companion object {
         private const val TAG = "GuideView"
@@ -83,6 +83,10 @@ class GuideView @JvmOverloads constructor(
      */
     fun setOnInnerOnGuidClickListener(listener: InnerOnGuidClickListener?) {
         this.mClickListener = listener
+    }
+
+    init {
+        setWillNotDraw(false)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {

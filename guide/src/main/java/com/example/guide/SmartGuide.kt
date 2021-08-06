@@ -2,9 +2,10 @@ package com.example.guide
 
 import android.app.Activity
 import android.content.Context
-import android.support.v4.app.Fragment
 import com.example.guide.layer.LayerCreator
 import android.text.TextUtils
+import android.view.View
+import androidx.fragment.app.Fragment
 import java.lang.StringBuilder
 
 import com.example.guide.option.BaseClipOption
@@ -42,6 +43,13 @@ class SmartGuide(context: Context) {
      */
     interface DescOptionBuilder {
         fun buildOption(): DescOption
+    }
+
+    /**
+     * 构建子View
+     */
+    interface ViewBuilder {
+        fun buildChildView(parent: GuideView): View
     }
 
     private var mActivity: Activity? = null

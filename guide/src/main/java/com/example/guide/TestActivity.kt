@@ -1,11 +1,16 @@
 package com.example.guide
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.TextView
 import android.widget.Toast
-import com.example.guide.option.CustClipOption
+import android.widget.WrapperListAdapter
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import com.airbnb.lottie.LottieAnimationView
+import com.example.guide.option.CustomClipOption
 import com.example.guide.option.DescOption
 
 import com.example.guide.option.ViewClipOption
@@ -44,10 +49,10 @@ class TestActivity : AppCompatActivity() {
             .initBaseColor(0x80000000.toInt()) //设置引蒙层背景颜色
             //新建一个引导
             .newLayer(TAG_USER_HEADER) //创建一个镂空区域
-            .buildCustomClip(object : SmartGuide.ClipOptionBuilder<CustClipOption> {
-                override fun buildOption(): CustClipOption {
+            .buildCustClipOption(object : SmartGuide.ClipOptionBuilder<CustomClipOption> {
+                override fun buildOption(): CustomClipOption {
                     //构建镂空区域图形，支持CustomClip 和 ViewClipOption
-                    return CustClipOption.newClipOption() //设置异形图片(实现见第三个按钮)
+                    return CustomClipOption.newClipOption() //设置异形图片(实现见第三个按钮)
                         //                                .asIrregularShape(getApplicationContext(),R.mipmap.test_img)
                         .setAlignX(SmartGuide.AlignX.ALIGN_RIGHT) //设置定位水平定位偏向
                         .setAlignY(SmartGuide.AlignY.ALIGN_TOP) //设置定位垂直定位偏向
@@ -62,13 +67,26 @@ class TestActivity : AppCompatActivity() {
                         .clipRadius(dip2px(24f).toFloat())
                 }
             })
-            .buildDescClip(object : SmartGuide.DescOptionBuilder {
+            .buildDescOption(object : SmartGuide.DescOptionBuilder {
                 override fun buildOption(): DescOption {
                     return DescOption.newDescOption(applicationContext) //设置介绍图片与clipInfo的对齐信息
                         .setIntroBmp(R.mipmap.test_face)
                         .setAlign(SmartGuide.AlignX.ALIGN_LEFT, SmartGuide.AlignY.ALIGN_BOTTOM)
                         .setSize(dip2px(151f), dip2px(97f))
                         .setOffset(dip2px(-20f).toFloat(), 0f)
+                }
+            })
+            .buildChildView(object : SmartGuide.ViewBuilder {
+                override fun buildChildView(parent: GuideView): View {
+                    val lottie = LottieAnimationView(parent.context)
+                    lottie.layoutParams = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+                        topMargin = 300
+                        leftMargin = 50
+                    }
+                    lottie.setAnimation("robot_login.json")
+                    lottie.loop(true)
+                    lottie.playAnimation()
+                    return lottie
                 }
             })
             .setOnGuidClickListener(object : OnGuidClickListener {
@@ -99,7 +117,7 @@ class TestActivity : AppCompatActivity() {
             .initBaseColor(0x80000000.toInt()) //设置引蒙层背景颜色
             //新建一个引导
             .newLayer(TAG_MUSIC_IMG) //创建一个镂空区域
-            .buildViewClip(object : SmartGuide.ClipOptionBuilder<ViewClipOption> {
+            .buildViewClipOption(object : SmartGuide.ClipOptionBuilder<ViewClipOption> {
                 override fun buildOption(): ViewClipOption {
                     return ViewClipOption.newClipOption()
                         .setDstView(R.id.text_pos)
@@ -107,7 +125,7 @@ class TestActivity : AppCompatActivity() {
                         .clipRadius(dip2px(51f).toFloat())
                 }
             })
-            .buildDescClip(object : SmartGuide.DescOptionBuilder {
+            .buildDescOption(object : SmartGuide.DescOptionBuilder {
                 override fun buildOption(): DescOption {
                     return DescOption.newDescOption(applicationContext) //设置介绍图片与clipInfo的对齐信息
                         .setIntroBmp(R.mipmap.test_face_music)
@@ -143,7 +161,7 @@ class TestActivity : AppCompatActivity() {
             .initBaseColor(0x80000000.toInt()) //设置引蒙层背景颜色
             //新建一个引导
             .newLayer(TAG_IGG_SHAPE) //创建一个镂空区域
-            .buildViewClip(object : SmartGuide.ClipOptionBuilder<ViewClipOption> {
+            .buildViewClipOption(object : SmartGuide.ClipOptionBuilder<ViewClipOption> {
                 override fun buildOption(): ViewClipOption {
                     return ViewClipOption.newClipOption()
                         .setDstView(R.id.text_pos2) //设置异形图片
@@ -153,7 +171,7 @@ class TestActivity : AppCompatActivity() {
                         .setOffsetY(dip2px(-5f).toFloat())
                 }
             })
-            .buildDescClip(object : SmartGuide.DescOptionBuilder {
+            .buildDescOption(object : SmartGuide.DescOptionBuilder {
                 override fun buildOption(): DescOption {
                     return DescOption.newDescOption(applicationContext) //设置介绍图片与clipInfo的对齐信息
                         .setIntroBmp(R.mipmap.test_face_igg)
@@ -187,10 +205,10 @@ class TestActivity : AppCompatActivity() {
             .initBaseColor(0x80000000.toInt()) //设置引蒙层背景颜色
             //新建一个引导
             .newLayer(TAG_USER_HEADER) //创建一个镂空区域
-            .buildCustomClip(object : SmartGuide.ClipOptionBuilder<CustClipOption> {
-                override fun buildOption(): CustClipOption {
+            .buildCustClipOption(object : SmartGuide.ClipOptionBuilder<CustomClipOption> {
+                override fun buildOption(): CustomClipOption {
                     //构建镂空区域图形，支持CustomClip 和 ViewClipOption
-                    return CustClipOption.newClipOption()
+                    return CustomClipOption.newClipOption()
                         .setAlignX(SmartGuide.AlignX.ALIGN_RIGHT) //设置定位水平定位偏向
                         .setAlignY(SmartGuide.AlignY.ALIGN_TOP) //设置定位垂直定位偏向
                         .setOffsetX(
@@ -203,7 +221,7 @@ class TestActivity : AppCompatActivity() {
                         .clipRadius(dip2px(24f).toFloat())
                 }
             })
-            .buildDescClip(object : SmartGuide.DescOptionBuilder {
+            .buildDescOption(object : SmartGuide.DescOptionBuilder {
                 override fun buildOption(): DescOption {
                     return DescOption.newDescOption(applicationContext) //设置介绍图片与clipInfo的对齐信息
                         .setIntroBmp(R.mipmap.test_face)
@@ -214,7 +232,7 @@ class TestActivity : AppCompatActivity() {
             })
             .over() //多个newLayer必须用over作为上一个newLayer的结束连接
             .newLayer(TAG_MUSIC_IMG) //创建一个镂空区域
-            .buildViewClip(object : SmartGuide.ClipOptionBuilder<ViewClipOption> {
+            .buildViewClipOption(object : SmartGuide.ClipOptionBuilder<ViewClipOption> {
                 override fun buildOption(): ViewClipOption {
                     return ViewClipOption.newClipOption()
                         .setDstView(R.id.text_pos)
@@ -222,7 +240,7 @@ class TestActivity : AppCompatActivity() {
                         .clipRadius(dip2px(51f).toFloat())
                 }
             })
-            .buildDescClip(object : SmartGuide.DescOptionBuilder {
+            .buildDescOption(object : SmartGuide.DescOptionBuilder {
                 override fun buildOption(): DescOption {
                     return DescOption.newDescOption(applicationContext) //设置介绍图片与clipInfo的对齐信息
                         .setIntroBmp(R.mipmap.test_face_music)
@@ -265,10 +283,10 @@ class TestActivity : AppCompatActivity() {
             .initBaseColor(0x80000000.toInt()) //设置引蒙层背景颜色
             //新建一个引导
             .newLayer(TAG_USER_HEADER) //创建一个镂空区域
-            .buildCustomClip(object : SmartGuide.ClipOptionBuilder<CustClipOption> {
-                override fun buildOption(): CustClipOption {
+            .buildCustClipOption(object : SmartGuide.ClipOptionBuilder<CustomClipOption> {
+                override fun buildOption(): CustomClipOption {
                     //构建镂空区域图形，支持CustomClip 和 ViewClipOption
-                    return CustClipOption.newClipOption() //设置异形图片(实现见第三个按钮)
+                    return CustomClipOption.newClipOption() //设置异形图片(实现见第三个按钮)
                         //                                .asIrregularShape(getApplicationContext(),R.mipmap.test_img)
                         .setAlignX(SmartGuide.AlignX.ALIGN_RIGHT) //设置定位水平定位偏向
                         .setAlignY(SmartGuide.AlignY.ALIGN_TOP) //设置定位垂直定位偏向
@@ -282,7 +300,7 @@ class TestActivity : AppCompatActivity() {
                         .clipRadius(dip2px(24f).toFloat())
                 }
             })
-            .buildDescClip(object : SmartGuide.DescOptionBuilder {
+            .buildDescOption(object : SmartGuide.DescOptionBuilder {
                 override fun buildOption(): DescOption {
                     return DescOption.newDescOption(applicationContext) //设置介绍图片与clipInfo的对齐信息
                         .setIntroBmp(R.mipmap.test_face)
@@ -297,17 +315,18 @@ class TestActivity : AppCompatActivity() {
                 }
 
                 override fun descClicked(guide: SmartGuide, view: GuideView, tag: String) {
+                    // 显示下一个步骤
                     showStep2(guide)
                 }
             })
             .show()
     }
 
-
+    // 显示下一个步骤
     private fun showStep2(guide: SmartGuide) {
         guide.clearLayers()
         guide.newLayer(TAG_MUSIC_IMG) //创建一个镂空区域
-            .buildViewClip(object : SmartGuide.ClipOptionBuilder<ViewClipOption> {
+            .buildViewClipOption(object : SmartGuide.ClipOptionBuilder<ViewClipOption> {
                 override fun buildOption(): ViewClipOption {
                     return ViewClipOption.newClipOption()
                         .setDstView(R.id.text_pos)
@@ -315,7 +334,7 @@ class TestActivity : AppCompatActivity() {
                         .clipRadius(dip2px(51f).toFloat())
                 }
             })
-            .buildDescClip(object : SmartGuide.DescOptionBuilder {
+            .buildDescOption(object : SmartGuide.DescOptionBuilder {
                 override fun buildOption(): DescOption {
                     return DescOption.newDescOption(applicationContext) //设置介绍图片与clipInfo的对齐信息
                         .setIntroBmp(R.mipmap.test_face_music)

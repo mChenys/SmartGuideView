@@ -3,9 +3,8 @@ package com.example.guide.layer
 import com.example.guide.GuideView
 import com.example.guide.OnGuidClickListener
 import com.example.guide.SmartGuide
-import com.example.guide.option.CustClipOption
+import com.example.guide.option.CustomClipOption
 import com.example.guide.option.ViewClipOption
-import java.lang.RuntimeException
 
 
 /**
@@ -40,7 +39,7 @@ class LayerCreator(var mView: GuideView, var smartGuide: SmartGuide, var tag: St
     /**
      * 根据VIEW 所在区域定位裁剪区域位置
      */
-    fun buildViewClip(clipBuilder: SmartGuide.ClipOptionBuilder<ViewClipOption>): LayerCreator {
+    fun buildViewClipOption(clipBuilder: SmartGuide.ClipOptionBuilder<ViewClipOption>): LayerCreator {
         currentLayer.setClipOption(clipBuilder.buildOption())
         return this
     }
@@ -49,7 +48,7 @@ class LayerCreator(var mView: GuideView, var smartGuide: SmartGuide, var tag: St
     /**
      * 自定义裁剪区域位置（全屏定位）
      */
-    fun buildCustomClip(clipBuilder: SmartGuide.ClipOptionBuilder<CustClipOption>): LayerCreator {
+    fun buildCustClipOption(clipBuilder: SmartGuide.ClipOptionBuilder<CustomClipOption>): LayerCreator {
         currentLayer.setClipOption(clipBuilder.buildOption())
         return this
     }
@@ -58,9 +57,17 @@ class LayerCreator(var mView: GuideView, var smartGuide: SmartGuide, var tag: St
     /**
      * 设置一个引导说明图形
      */
-    fun buildDescClip(builder: SmartGuide.DescOptionBuilder): LayerCreator {
+    fun buildDescOption(builder: SmartGuide.DescOptionBuilder): LayerCreator {
         currentLayer.setDescOption(builder.buildOption())
         return this
+    }
+
+    /**
+     * 构建子View,可用于在蒙层上添加额外元素
+     */
+    fun buildChildView(builder: SmartGuide.ViewBuilder): LayerCreator {
+        mView.addView(builder.buildChildView(mView))
+        return this;
     }
 
 

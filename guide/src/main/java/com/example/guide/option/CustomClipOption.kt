@@ -5,8 +5,8 @@ import android.content.Context
 import android.graphics.*
 import com.example.guide.SmartGuide
 
-import android.support.annotation.DrawableRes
-import android.support.v4.app.Fragment
+import androidx.annotation.DrawableRes
+import androidx.fragment.app.Fragment
 
 
 /**
@@ -15,7 +15,7 @@ import android.support.v4.app.Fragment
  * Email: chenyousheng@lizhi.fm
  * Desc: 自定义裁剪方式配置项
  */
-class CustClipOption : BaseClipOption() {
+class CustomClipOption : BaseClipOption() {
     // 对齐方式
     private var alignX: SmartGuide.AlignX = SmartGuide.AlignX.ALIGN_LEFT
     private var alignY: SmartGuide.AlignY = SmartGuide.AlignY.ALIGN_TOP
@@ -29,13 +29,13 @@ class CustClipOption : BaseClipOption() {
     private var parentHeight = 0f
 
     companion object {
-        fun newClipOption(): CustClipOption = CustClipOption()
+        fun newClipOption(): CustomClipOption = CustomClipOption()
     }
 
     /**
      * 设置裁剪区域大小
      */
-    fun setClipSize(width: Int, height: Int): CustClipOption {
+    fun setClipSize(width: Int, height: Int): CustomClipOption {
         clipWidth = width
         clipHeight = height
         return this
@@ -44,7 +44,7 @@ class CustClipOption : BaseClipOption() {
     /**
      * 设置裁剪区域水平对齐方式
      */
-    fun setAlignX(alignX: SmartGuide.AlignX): CustClipOption {
+    fun setAlignX(alignX: SmartGuide.AlignX): CustomClipOption {
         this.alignX = alignX
         return this
     }
@@ -52,7 +52,7 @@ class CustClipOption : BaseClipOption() {
     /**
      * 设置裁剪区域垂直对齐方式
      */
-    fun setAlignY(alignY: SmartGuide.AlignY): CustClipOption {
+    fun setAlignY(alignY: SmartGuide.AlignY): CustomClipOption {
         this.alignY = alignY
         return this
     }
@@ -60,7 +60,7 @@ class CustClipOption : BaseClipOption() {
     /**
      * 设置裁剪区域水平偏移量
      */
-    fun setOffsetX(offsetX: Float): CustClipOption {
+    fun setOffsetX(offsetX: Float): CustomClipOption {
         this.offsetX = offsetX
         return this
     }
@@ -68,7 +68,7 @@ class CustClipOption : BaseClipOption() {
     /**
      * 设置裁剪区域垂直偏移量
      */
-    fun setOffsetY(offsetY: Float): CustClipOption {
+    fun setOffsetY(offsetY: Float): CustomClipOption {
         this.offsetY = offsetY
         return this
     }
@@ -76,7 +76,7 @@ class CustClipOption : BaseClipOption() {
     /**
      * 针对圆形裁剪区域设置半径
      */
-    fun clipRadius(radius: Float): CustClipOption {
+    fun clipRadius(radius: Float): CustomClipOption {
         this.radius = radius
         return this
     }
@@ -85,7 +85,7 @@ class CustClipOption : BaseClipOption() {
     /**
      * 设置不规则裁剪图形PNG资源
      */
-    fun asIrregularShape(context: Context, @DrawableRes bitmapId: Int): CustClipOption {
+    fun asIrregularShape(context: Context, @DrawableRes bitmapId: Int): CustomClipOption {
         irregularClip = BitmapFactory.decodeResource(context.resources, bitmapId)
         return this
     }
@@ -93,7 +93,7 @@ class CustClipOption : BaseClipOption() {
     /**
      * 设置不规则裁剪图形PNG资源
      */
-    fun asIrregularShape(bitmap: Bitmap): CustClipOption {
+    fun asIrregularShape(bitmap: Bitmap): CustomClipOption {
         irregularClip = bitmap
         return this
     }
@@ -101,7 +101,7 @@ class CustClipOption : BaseClipOption() {
     /**
      * 是否镂空区域事件穿透
      */
-    fun setEventPassThrough(eventPassThrough: Boolean): CustClipOption {
+    fun setEventPassThrough(eventPassThrough: Boolean): CustomClipOption {
         this.eventPassThrough = eventPassThrough
         return this
     }

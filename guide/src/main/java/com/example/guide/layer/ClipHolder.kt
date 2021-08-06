@@ -4,7 +4,7 @@ import android.app.Activity
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.example.guide.option.BaseClipOption
 
 

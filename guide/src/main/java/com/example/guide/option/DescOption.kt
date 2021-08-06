@@ -2,8 +2,8 @@ package com.example.guide.option
 
 import android.content.Context
 import android.graphics.*
+import androidx.annotation.DrawableRes
 import com.example.guide.SmartGuide
-import android.support.annotation.DrawableRes
 
 import kotlin.math.abs
 
