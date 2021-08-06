@@ -53,10 +53,10 @@ class TestActivity : AppCompatActivity() {
                 override fun buildOption(): CustomClipOption {
                     //构建镂空区域图形，支持CustomClip 和 ViewClipOption
                     return CustomClipOption.newClipOption() //设置异形图片(实现见第三个按钮)
-                        //                                .asIrregularShape(getApplicationContext(),R.mipmap.test_img)
+                                                       // .asIrregularShape(applicationContext,R.mipmap.test_img)
                         .setAlignX(SmartGuide.AlignX.ALIGN_RIGHT) //设置定位水平定位偏向
                         .setAlignY(SmartGuide.AlignY.ALIGN_TOP) //设置定位垂直定位偏向
-                        .setEventPassThrough(true) //镂空区域是否事件穿透
+                        //.setEventPassThrough(true) //镂空区域是否事件穿透
                         .setOffsetX(
                             dip2px(14f).toFloat()
                         ) //根据水平定位偏向设置偏移，如果未ALIGN_LEFT,则是距离屏幕左侧偏移量，如果是ALIGN_RIGHT 则是距离屏幕右侧偏移量
@@ -95,7 +95,8 @@ class TestActivity : AppCompatActivity() {
                 }
 
                 override fun clipClicked(guide: SmartGuide, view: GuideView, tag: String) {
-                    //由于设置了setEventPassThrough 为true，所以这里这个方法不会回调
+                    //如果设置了setEventPassThrough 为true，这里这个方法将不会回调
+                    Toast.makeText(applicationContext, "点击了右上角裁剪区域", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun descClicked(guide: SmartGuide, view: GuideView, tag: String) {
