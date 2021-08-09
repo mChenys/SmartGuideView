@@ -3,10 +3,7 @@ package com.example.guide
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.TextView
 import android.widget.Toast
-import android.widget.WrapperListAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.airbnb.lottie.LottieAnimationView
@@ -46,7 +43,7 @@ class TestActivity : AppCompatActivity() {
     fun showAbsPosLayer(view: View?) {
         //构建引导
         SmartGuide.newGuide(this)
-            .initBaseColor(0x80000000.toInt()) //设置引蒙层背景颜色
+            .setBackgroundColor(0x80000000.toInt()) //设置引蒙层背景颜色
             //新建一个引导
             .newLayer(TAG_USER_HEADER) //创建一个镂空区域
             .buildCustClipOption(object : SmartGuide.ClipOptionBuilder<CustomClipOption> {
@@ -73,7 +70,7 @@ class TestActivity : AppCompatActivity() {
                         .setIntroBmp(R.mipmap.test_face)
                         .setAlign(SmartGuide.AlignX.ALIGN_LEFT, SmartGuide.AlignY.ALIGN_BOTTOM)
                         .setSize(dip2px(151f), dip2px(97f))
-                        .setOffset(dip2px(-20f).toFloat(), 0f)
+                        .setOffsetByClip(dip2px(-20f).toFloat(), 0f)
                 }
             })
             .buildChildView(object : SmartGuide.ViewBuilder {
@@ -115,7 +112,7 @@ class TestActivity : AppCompatActivity() {
     fun showViewPosLayer(view: View?) {
         //构建引导
         SmartGuide.newGuide(this)
-            .initBaseColor(0x80000000.toInt()) //设置引蒙层背景颜色
+            .setBackgroundColor(0x80000000.toInt()) //设置引蒙层背景颜色
             //新建一个引导
             .newLayer(TAG_MUSIC_IMG) //创建一个镂空区域
             .buildViewClipOption(object : SmartGuide.ClipOptionBuilder<ViewClipOption> {
@@ -132,7 +129,7 @@ class TestActivity : AppCompatActivity() {
                         .setIntroBmp(R.mipmap.test_face_music)
                         .setAlign(SmartGuide.AlignX.ALIGN_LEFT, SmartGuide.AlignY.ALIGN_TOP)
                         .setSize(dip2px(120f), dip2px(120f))
-                        .setOffset(dip2px(-100f).toFloat(), 0f)
+                        .setOffsetByClip(dip2px(-100f).toFloat(), 0f)
                 }
             })
             .setOnGuidClickListener(object : OnGuidClickListener {
@@ -159,7 +156,7 @@ class TestActivity : AppCompatActivity() {
      */
     fun showIgg(view: View?) {
         SmartGuide.newGuide(this)
-            .initBaseColor(0x80000000.toInt()) //设置引蒙层背景颜色
+            .setBackgroundColor(0x80000000.toInt()) //设置引蒙层背景颜色
             //新建一个引导
             .newLayer(TAG_IGG_SHAPE) //创建一个镂空区域
             .buildViewClipOption(object : SmartGuide.ClipOptionBuilder<ViewClipOption> {
@@ -203,7 +200,7 @@ class TestActivity : AppCompatActivity() {
      */
     fun showMultLayer(view: View?) {
         SmartGuide.newGuide(this)
-            .initBaseColor(0x80000000.toInt()) //设置引蒙层背景颜色
+            .setBackgroundColor(0x80000000.toInt()) //设置引蒙层背景颜色
             //新建一个引导
             .newLayer(TAG_USER_HEADER) //创建一个镂空区域
             .buildCustClipOption(object : SmartGuide.ClipOptionBuilder<CustomClipOption> {
@@ -228,7 +225,7 @@ class TestActivity : AppCompatActivity() {
                         .setIntroBmp(R.mipmap.test_face)
                         .setAlign(SmartGuide.AlignX.ALIGN_LEFT, SmartGuide.AlignY.ALIGN_BOTTOM)
                         .setSize(dip2px(151f), dip2px(97f))
-                        .setOffset(dip2px(-20f).toFloat(), 0f)
+                        .setOffsetByClip(dip2px(-20f).toFloat(), 0f)
                 }
             })
             .over() //多个newLayer必须用over作为上一个newLayer的结束连接
@@ -247,7 +244,7 @@ class TestActivity : AppCompatActivity() {
                         .setIntroBmp(R.mipmap.test_face_music)
                         .setAlign(SmartGuide.AlignX.ALIGN_LEFT, SmartGuide.AlignY.ALIGN_TOP)
                         .setSize(dip2px(120f), dip2px(120f))
-                        .setOffset(dip2px(-100f).toFloat(), 0f)
+                        .setOffsetByClip(dip2px(-100f).toFloat(), 0f)
                 }
             })
             .setOnGuidClickListener(object : OnGuidClickListener {
@@ -281,7 +278,7 @@ class TestActivity : AppCompatActivity() {
      */
     fun releaseTest(view: View?) {
         SmartGuide.newGuide(this)
-            .initBaseColor(0x80000000.toInt()) //设置引蒙层背景颜色
+            .setBackgroundColor(0x80000000.toInt()) //设置引蒙层背景颜色
             //新建一个引导
             .newLayer(TAG_USER_HEADER) //创建一个镂空区域
             .buildCustClipOption(object : SmartGuide.ClipOptionBuilder<CustomClipOption> {
@@ -307,7 +304,7 @@ class TestActivity : AppCompatActivity() {
                         .setIntroBmp(R.mipmap.test_face)
                         .setAlign(SmartGuide.AlignX.ALIGN_LEFT, SmartGuide.AlignY.ALIGN_BOTTOM)
                         .setSize(dip2px(151f), dip2px(97f))
-                        .setOffset(dip2px(-20f).toFloat(), 0f)
+                        .setOffsetByClip(dip2px(-20f).toFloat(), 0f)
                 }
             })
             .setOnGuidClickListener(object : OnGuidClickListener {
@@ -341,7 +338,7 @@ class TestActivity : AppCompatActivity() {
                         .setIntroBmp(R.mipmap.test_face_music)
                         .setAlign(SmartGuide.AlignX.ALIGN_LEFT, SmartGuide.AlignY.ALIGN_TOP)
                         .setSize(dip2px(120f), dip2px(120f))
-                        .setOffset(dip2px(-100f).toFloat(), 0f)
+                        .setOffsetByClip(dip2px(-100f).toFloat(), 0f)
                 }
             })
             .setOnGuidClickListener(object : OnGuidClickListener {

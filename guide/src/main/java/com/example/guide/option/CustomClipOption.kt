@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment
  * Email: chenyousheng@lizhi.fm
  * Desc: 自定义裁剪方式配置项
  */
-class CustomClipOption : BaseClipOption() {
+class CustomClipOption private constructor(): BaseClipOption() {
     // 对齐方式
     private var alignX: SmartGuide.AlignX = SmartGuide.AlignX.ALIGN_LEFT
     private var alignY: SmartGuide.AlignY = SmartGuide.AlignY.ALIGN_TOP
@@ -42,7 +42,7 @@ class CustomClipOption : BaseClipOption() {
     }
 
     /**
-     * 设置裁剪区域水平对齐方式
+     * 设置裁剪区域水平对齐方式,相对屏幕左上角
      */
     fun setAlignX(alignX: SmartGuide.AlignX): CustomClipOption {
         this.alignX = alignX
@@ -50,7 +50,7 @@ class CustomClipOption : BaseClipOption() {
     }
 
     /**
-     * 设置裁剪区域垂直对齐方式
+     * 设置裁剪区域垂直对齐方式,相对屏幕左上角
      */
     fun setAlignY(alignY: SmartGuide.AlignY): CustomClipOption {
         this.alignY = alignY
@@ -58,7 +58,7 @@ class CustomClipOption : BaseClipOption() {
     }
 
     /**
-     * 设置裁剪区域水平偏移量
+     * 设置裁剪区域水平偏移量,相对屏幕左上角
      */
     fun setOffsetX(offsetX: Float): CustomClipOption {
         this.offsetX = offsetX
@@ -66,7 +66,7 @@ class CustomClipOption : BaseClipOption() {
     }
 
     /**
-     * 设置裁剪区域垂直偏移量
+     * 设置裁剪区域垂直偏移量,相对屏幕左上角
      */
     fun setOffsetY(offsetY: Float): CustomClipOption {
         this.offsetY = offsetY

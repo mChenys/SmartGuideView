@@ -89,11 +89,11 @@ class LayerCreator(var mView: GuideView, var smartGuide: SmartGuide, var tag: St
 
     // 点击会回调
     override fun destroyed() {
-        mListener?.destroyed();
+        mListener?.destroyed()
     }
 
     override fun emptyClicked(): Boolean {
-        return mListener?.emptyClicked(smartGuide) ?: false
+        return mListener?.setOutsideTouchable(smartGuide) ?: false
     }
 
     override fun clipClicked(tag: String) {

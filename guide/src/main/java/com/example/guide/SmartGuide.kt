@@ -5,6 +5,8 @@ import android.content.Context
 import com.example.guide.layer.LayerCreator
 import android.text.TextUtils
 import android.view.View
+import android.widget.FrameLayout
+import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import java.lang.StringBuilder
 
@@ -18,7 +20,7 @@ import com.example.guide.option.DescOption
  * Email: chenyousheng@lizhi.fm
  * Desc:
  */
-class SmartGuide(context: Context) {
+class SmartGuide private constructor(context: Context) {
     // 垂直对齐方式
     sealed class AlignY {
         object ALIGN_TOP : AlignY()
@@ -56,16 +58,34 @@ class SmartGuide(context: Context) {
     private var mFragment: Fragment? = null
     private val mView: GuideView = GuideView(context)
 
+    /**
+     * 引导层的宽高
+     */
+    private var guideWidth: Int = FrameLayout.LayoutParams.MATCH_PARENT
+    private var guideHeight: Int = FrameLayout.LayoutParams.MATCH_PARENT
+
     companion object {
-        fun newGuide(activity: Activity): SmartGuide {
+        fun newGuide(
+            activity: Activity,
+            guideWidth: Int = FrameLayout.LayoutParams.MATCH_PARENT,
+            guideHeight: Int = FrameLayout.LayoutParams.MATCH_PARENT
+        ): SmartGuide {
             return SmartGuide(activity).apply {
                 this.mActivity = activity
+                this.guideWidth = guideWidth
+                this.guideHeight = guideHeight
             }
         }
 
-        fun newGuide(fragment: Fragment): SmartGuide {
+        fun newGuide(
+            fragment: Fragment,
+            guideWidth: Int = FrameLayout.LayoutParams.MATCH_PARENT,
+            guideHeight: Int = FrameLayout.LayoutParams.MATCH_PARENT
+        ): SmartGuide {
             return SmartGuide(fragment.requireActivity()).apply {
                 this.mFragment = fragment
+                this.guideWidth = guideWidth
+                this.guideHeight = guideHeight
             }
         }
     }
@@ -73,8 +93,16 @@ class SmartGuide(context: Context) {
     /**
      * layer图层背景色
      */
-    fun initBaseColor(color: Int): SmartGuide {
+    fun setBackgroundColor(color: Int): SmartGuide {
         mView.setBackgroundColor(color)
+        return this
+    }
+
+    /**
+     * 设置渐变背景色
+     */
+    fun setLinearGradientBackgroundColor(@ColorInt beginColor: Int, @ColorInt endColor: Int): SmartGuide {
+        mView.setLinearGradientBackgroundColor(beginColor, endColor)
         return this
     }
 
@@ -101,6 +129,7 @@ class SmartGuide(context: Context) {
      * 显示
      */
     fun show() {
+        mView.layoutParams = FrameLayout.LayoutParams(guideWidth, guideHeight)
         if (mActivity != null) {
             mView.build(mActivity!!)
         } else if (mFragment != null) {

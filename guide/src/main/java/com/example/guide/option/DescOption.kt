@@ -14,7 +14,7 @@ import kotlin.math.abs
  * Email: chenyousheng@lizhi.fm
  * Desc: 描述配置项
  */
-class DescOption(private val context: Context) {
+class DescOption private constructor(private val context: Context) {
     private var alignX: SmartGuide.AlignX = SmartGuide.AlignX.ALIGN_RIGHT
     private var alignY: SmartGuide.AlignY = SmartGuide.AlignY.ALIGN_BOTTOM
     private var with: Int = 0
@@ -22,6 +22,8 @@ class DescOption(private val context: Context) {
     private var offsetX: Float = 0f
     private var offsetY: Float = 0f
     private var introBitmap: Bitmap? = null
+    private var absoluteOffset: Boolean = false
+
     var rectF: RectF? = null
 
     companion object {
@@ -31,11 +33,22 @@ class DescOption(private val context: Context) {
     }
 
     /**
-     * 设置描述图片偏移位置
+     * 设置描述图片偏移位置,相对于裁剪区域
+     */
+    fun setOffsetByClip(offsetX: Float, offsetY: Float): DescOption {
+        this.offsetX = offsetX
+        this.offsetY = offsetY
+        this.absoluteOffset = false
+        return this
+    }
+
+    /**
+     * 设置描述图片偏移位置,相对于屏幕左上角
      */
     fun setOffset(offsetX: Float, offsetY: Float): DescOption {
         this.offsetX = offsetX
         this.offsetY = offsetY
+        this.absoluteOffset = true
         return this
     }
 
@@ -96,23 +109,30 @@ class DescOption(private val context: Context) {
 
     }
 
-    // 根据裁剪区域定位描述信息的位置
+
     private fun initRectF(clipRectF: RectF) {
-        val left: Float = if (alignX === SmartGuide.AlignX.ALIGN_LEFT) {
-            // 描述图片位于裁剪区域的左侧
-            clipRectF.left - with - offsetX
+        if (absoluteOffset) {
+            // 绝对定位
+            rectF = RectF(offsetX, offsetY, offsetX + with, offsetY + height)
         } else {
-            // 描述图片位于裁剪区域的右侧
-            clipRectF.right + offsetX
+            // 根据裁剪区域定位描述信息的位置
+            val left: Float = if (alignX === SmartGuide.AlignX.ALIGN_LEFT) {
+                // 描述图片位于裁剪区域的左侧
+                clipRectF.left - with - offsetX
+            } else {
+                // 描述图片位于裁剪区域的右侧
+                clipRectF.right + offsetX
+            }
+            val top: Float = if (alignY === SmartGuide.AlignY.ALIGN_TOP) {
+                // 描述图片位于裁剪区域的上边
+                clipRectF.top - height - offsetY
+            } else {
+                // 描述图片位于裁剪区域的下边
+                clipRectF.bottom + offsetY
+            }
+            rectF = RectF(left, top, left + with, top + height)
         }
-        val top: Float = if (alignY === SmartGuide.AlignY.ALIGN_TOP) {
-            // 描述图片位于裁剪区域的上边
-            clipRectF.top - height - offsetY
-        } else {
-            // 描述图片位于裁剪区域的下边
-            clipRectF.bottom + offsetY
-        }
-        rectF = RectF(left, top, left + with, top + height)
+
     }
 
 

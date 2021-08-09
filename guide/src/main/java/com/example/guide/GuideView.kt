@@ -1,20 +1,19 @@
 package com.example.guide
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewConfiguration
 import com.example.guide.layer.Layer
 
 import android.app.Activity
+import android.graphics.*
 import android.text.TextUtils
 import android.view.ViewGroup
 import android.widget.FrameLayout
 
 import android.view.MotionEvent
+import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import kotlin.math.abs
 
@@ -42,6 +41,9 @@ class GuideView @JvmOverloads constructor(
     private var backgroundColor: Int = 0X80000000.toInt()
     private val mMinTouchSlop = ViewConfiguration.get(context).scaledTouchSlop
     private var mClickListener: InnerOnGuidClickListener? = null
+    private var mBeginColor: Int = -1
+    private var mEndColor: Int = -1
+    private val mGradientPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     /**
      * 引导层点击事件监听器
@@ -79,6 +81,14 @@ class GuideView @JvmOverloads constructor(
     }
 
     /**
+     *  设置背景色线性渐变
+     */
+    fun setLinearGradientBackgroundColor(@ColorInt beginColor: Int, @ColorInt endColor: Int) {
+        this.mBeginColor = beginColor
+        this.mEndColor = endColor
+    }
+
+    /**
      * 设置点击事件
      */
     fun setOnInnerOnGuidClickListener(listener: InnerOnGuidClickListener?) {
@@ -95,8 +105,18 @@ class GuideView @JvmOverloads constructor(
         val height = bottom - top
         if (mRectF == null || mRectF!!.width() < width || mRectF!!.height() < height) {
             mRectF = RectF(0F, 0F, width.toFloat(), height.toFloat())
+            mGradientPaint.shader = LinearGradient(
+                width.toFloat() / 2f,
+                0f,
+                width.toFloat() / 2f,
+                height.toFloat(),
+                mBeginColor,
+                mEndColor,
+                Shader.TileMode.CLAMP
+            )
         }
     }
+
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -105,7 +125,12 @@ class GuideView @JvmOverloads constructor(
         }
         drawTaskId = canvas.saveLayer(mRectF, mPaint)
         // 绘制蒙层背景
-        canvas.drawColor(backgroundColor)
+        if (mBeginColor != -1 && mEndColor != -1) {
+            canvas.drawRect(mRectF!!, mGradientPaint)
+        } else {
+            canvas.drawColor(backgroundColor)
+        }
+
         // 绘制裁剪区域
         for (i in mLayerList.indices) {
             mLayerList[i].draw(canvas, mPaint, true, mRectF!!.width(), mRectF!!.height())
@@ -139,11 +164,7 @@ class GuideView @JvmOverloads constructor(
             rootView.removeView(oldView)
         }
         tag = TAG
-        rootView.addView(
-            this, FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT
-            )
-        )
+        rootView.addView(this)
         for (i in mLayerList.indices) {
             mLayerList[i].build(activity)
         }
@@ -160,11 +181,7 @@ class GuideView @JvmOverloads constructor(
             rootView.removeView(oldView)
         }
         tag = TAG
-        rootView.addView(
-            this, FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT
-            )
-        )
+        rootView.addView(this)
         for (i in mLayerList.indices) {
             mLayerList[i].build(fragment)
         }
