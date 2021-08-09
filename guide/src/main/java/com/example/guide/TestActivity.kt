@@ -87,9 +87,6 @@ class TestActivity : AppCompatActivity() {
                 }
             })
             .setOnGuidClickListener(object : OnGuidClickListener {
-                override fun emptyClicked(smartGuide: SmartGuide): Boolean { //点击蒙层空白区域
-                    return true //返回true，引导消失，false不消失
-                }
 
                 override fun clipClicked(guide: SmartGuide, view: GuideView, tag: String) {
                     //如果设置了setEventPassThrough 为true，这里这个方法将不会回调
@@ -133,9 +130,6 @@ class TestActivity : AppCompatActivity() {
                 }
             })
             .setOnGuidClickListener(object : OnGuidClickListener {
-                override fun emptyClicked(smartGuide: SmartGuide): Boolean {
-                    return true
-                }
 
                 override fun clipClicked(guide: SmartGuide, view: GuideView, tag: String) {
                     Toast.makeText(applicationContext, "点击了紫色音乐图标裁剪区域", Toast.LENGTH_SHORT).show()
@@ -178,9 +172,6 @@ class TestActivity : AppCompatActivity() {
                 }
             })
             .setOnGuidClickListener(object : OnGuidClickListener {
-                override fun emptyClicked(smartGuide: SmartGuide): Boolean {
-                    return true
-                }
 
                 override fun clipClicked(guide: SmartGuide, view: GuideView, tag: String) {
                     Toast.makeText(applicationContext, "点击了不规则图形镂空区域", Toast.LENGTH_SHORT).show()
@@ -248,9 +239,6 @@ class TestActivity : AppCompatActivity() {
                 }
             })
             .setOnGuidClickListener(object : OnGuidClickListener {
-                override fun emptyClicked(smartGuide: SmartGuide): Boolean {
-                    return true
-                }
 
                 override fun clipClicked(guide: SmartGuide, view: GuideView, tag: String) {
                     if (TAG_USER_HEADER == tag) {
@@ -308,10 +296,9 @@ class TestActivity : AppCompatActivity() {
                 }
             })
             .setOnGuidClickListener(object : OnGuidClickListener {
-                override fun emptyClicked(smartGuide: SmartGuide): Boolean { //点击蒙层空白区域
+                override fun setOutsideTouchable(guide: SmartGuide): Boolean {//点击蒙层空白区域
                     return false //返回true，引导消失，false不消失
                 }
-
                 override fun descClicked(guide: SmartGuide, view: GuideView, tag: String) {
                     // 显示下一个步骤
                     showStep2(guide)
@@ -342,11 +329,7 @@ class TestActivity : AppCompatActivity() {
                 }
             })
             .setOnGuidClickListener(object : OnGuidClickListener {
-
-                override fun emptyClicked(smartGuide: SmartGuide): Boolean {
-                    return true
-                }
-
+                
                 override fun clipClicked(guide: SmartGuide, view: GuideView, tag: String) {
                     Toast.makeText(applicationContext, "点击了紫色音乐图标裁剪区域", Toast.LENGTH_SHORT).show()
                 }
